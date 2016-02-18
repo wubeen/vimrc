@@ -1,7 +1,7 @@
 " VIM Configuration File
 " Description: Optimized for C/C++ development, but useful also for other things.
 " Author: Gerhard Gappmeier
-"
+" Modified by wubeen
  
 " set UTF-8 encoding
 set enc=utf-8
@@ -9,8 +9,6 @@ set fenc=utf-8
 set termencoding=utf-8
 " disable vi compatibility (emulation of old bugs)
 set nocompatible
-" use indentation of previous line
-set autoindent
 " use intelligent indentation for C
 set smartindent
 " configure tabwidth and insert spaces instead of tabs
@@ -34,7 +32,6 @@ set comments=sl:/*,mb:\ *,elx:\ */
 " indent smartly
 set autoindent
 set smartindent
-set cindent
 set noexpandtab
 set noswapfile
 
@@ -88,4 +85,8 @@ set cursorline
 set foldmethod=syntax
 set foldlevelstart=1
 set clipboard=unnamedplus
+
+" comand line
+set showcmd
+set showmode
 " Nerdtree
