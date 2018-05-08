@@ -1,1 +1,2 @@
-my vim configuration file
+#my vim configuration file
+vimplug: vimplug.vimrc
