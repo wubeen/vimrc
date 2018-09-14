@@ -1,92 +1,55 @@
-" VIM Configuration File
-" Description: Optimized for C/C++ development, but useful also for other things.
-" Author: Gerhard Gappmeier
-" Modified by wubeen
- 
-" set UTF-8 encoding
 set enc=utf-8
-set fenc=utf-8
-set termencoding=utf-8
-" disable vi compatibility (emulation of old bugs)
-set nocompatible
-" use intelligent indentation for C
-set smartindent
-" configure tabwidth and insert spaces instead of tabs
-set tabstop=4        " tab width is 4 spaces
-set shiftwidth=4     " indent also with 4 spaces
-set expandtab        " expand tabs to spaces
-" wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
-set textwidth=120
-" turn syntax highlighting on
-set t_Co=256
-syntax on
-" colorscheme wombat256
-" turn line numbers on
-color desert
+call plug#begin('~/.vim/plugged')
+
+" Make sure you use single quotes
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
+
+" YouCompleteMe
+" Plug 'Vallocric/YouCompleteMe'
+
+Plug 'Yggdroot/indentLine'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tell-k/vim-autopep8'
+Plug 'scrooloose/nerdcommenter'
+
+
+" Multiple Plug commands can be written in a single line using | separators
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-master branch
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Initialize plugin system
+call plug#end()
+
 set number
-" highlight matching braces
-set showmatch
-" intelligent comments
-set comments=sl:/*,mb:\ *,elx:\ */
+autocmd VimEnter * NERDTree
+silent! nmap <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" indent smartly
+" Nerdtree configuration
+let NERDTreeWinPos="right"
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.swp', '\.pyc']
+
+" Indent configuration
+let g:indentLine_enable=1
+let g:autopep8_disable_show_diff=1
+let mapleader=','
+set backspace=indent.sol.start
+syntax on
+
+
+" python style
+set expandtab
+set textwidth=120
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set autoindent
-set smartindent
-set noexpandtab
-set noswapfile
-
-" status bar
-
-set ruler
-set clipboard+=unnamed
- 
-" Install OmniCppComplete like described on http://vim.wikia.com/wiki/C++_code_completion
-" This offers intelligent C++ completion when typing ‘.’ ‘->’ or <C-o>
-" Load standard tag files
-set cindent 
-" Install DoxygenToolkit from http://www.vim.org/scripts/script.php?script_id=987
-let g:DoxygenToolkit_authorName="John Doe <john@doe.com>"
- 
-" Enhanced keyboard mappings
-"
-" in normal mode F2 will save the file
-nmap <F2> :w<CR>
-" in insert mode F2 will exit insert, save, enters insert again
-imap <F2> <ESC>:w<CR>i
-" switch between header/source with F4
-map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-" recreate tags file with F5
-map <F5> :!ctags -R –c++-kinds=+p –fields=+iaS –extra=+q .<CR>
-" create doxygen comment
-map <F6> :Dox<CR>
-" build using makeprg with <F7>
-map <F7> :make<CR>
-" build using makeprg with <S-F7>
-map <S-F7> :make clean all<CR>
-" goto definition with F12
-map <F12> <C-]>
-" in diff mode we use the spell check keys for merging
-if &diff
-  ” diff settings
-  map <M-Down> ]c
-  map <M-Up> [c
-  map <M-Left> do
-  map <M-Right> dp
-  map <F9> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
-else
-  " spell settings
-  ":setlocal spell spelllang=en
-  " set the spellfile - folders must exist
-  set spellfile=~/.vim/spellfile.add
-  map <M-Down> ]s
-  map <M-Up> [s
-endif
-set cursorline 
-set foldmethod=syntax
-set foldlevelstart=1
-set clipboard=unnamedplus
-
-" comand line
-set showcmd
-set showmode
-" Nerdtree
